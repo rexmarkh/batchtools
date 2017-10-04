@@ -11,5 +11,6 @@ export class PagetitleComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  companyName = 'Account: GlobalEnglish SQA ONLY';
+  pageTitle = 'Upload File';
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
+import { DataTableModule } from 'angular-4-data-table';
 
 import { AppBootstrapModule } from './modules/app-bootstrap.module';
 import { Approute } from './modules/app-routes.module';
@@ -25,7 +26,9 @@ import { PagetitleComponent } from './components/pagetitle/pagetitle.component';
     BrowserModule,
     AppBootstrapModule,
     HttpModule,
-    RouterModule.forRoot(Approute)
+    RouterModule.forRoot(Approute),
+    DataTableModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
