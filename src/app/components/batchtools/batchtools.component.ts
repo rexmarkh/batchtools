@@ -91,6 +91,7 @@ export class BatchtoolsComponent implements OnInit {
 	  this.errorVisible = true;
 	  this.status = "Validation Completed";
 	  this.dynamic = 100;
+	  window.location.href = window.location.origin+"/wheelhouse/batch/search";
   }
   
   public triggerDownload(event: any){
@@ -99,14 +100,10 @@ export class BatchtoolsComponent implements OnInit {
   
   public validateFile(event: any){
 	  
-	  if(this.status == "Validation Completed"){
-	   window.location.href = window.location.origin+"/wheelhouse/batch/search";  
-	  }else if(this.status != "Validating users..."){
-	  
-	  
-	  
+	  if(this.status == "Read Successfully"){
 	  this.dynamic = 47;
 	  this.status = "Validating users...";
+	  document.getElementById("validation_button").classList.remove("btn-primary");
 	  this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .get(URL,{search:{"stage": "validateUsers"}}).subscribe( // Successful responses call the first callback.
@@ -151,6 +148,7 @@ export class BatchtoolsComponent implements OnInit {
   this.users = 0;
   document.getElementById("upload_title").classList.add("active");
   document.getElementById("validate_title").classList.remove("active");
+  document.getElementById("validation_button").classList.add("btn-primary");
   }
   
   public logCurrentFiles():void{
