@@ -31,7 +31,7 @@ export class BatchtoolsComponent implements OnInit {
   public errorVisible = true;
   public users = 0;
   public appearInput(visible){
-    this.isVisible = true;
+    
   }
   public myEvent() {
     console.log("Clicked");
@@ -49,8 +49,8 @@ export class BatchtoolsComponent implements OnInit {
     console.log(event);
     this.actionLog += "\n currentFiles: " + this.getFileNames(event.currentFiles);
 	
-  this.status = "Uploading file";
-	
+    this.status = "Uploading file";
+	this.isVisible = true;
 	let formData = new FormData();
     
 	formData.append('batch',event.currentFiles[0]);
@@ -64,6 +64,7 @@ export class BatchtoolsComponent implements OnInit {
            this.dynamic = 33;
            this.steps = "Step 2: Validate File"
 					 this.status = "Read Successfully";
+					 this.isVisible = true;
 					 document.getElementById("upload_title").classList.remove("active");
 					 document.getElementById("validate_title").classList.add("active");
                          
@@ -71,7 +72,7 @@ export class BatchtoolsComponent implements OnInit {
                 (error) => { 
 				this.uploadElementvisible = false;
 				this.status = "Failed to Read"; 
-				console.log('Something went wrong!');
+				
 				});
 	
     
@@ -92,11 +93,15 @@ export class BatchtoolsComponent implements OnInit {
 	  this.dynamic = 100;
   }
   
+  public triggerDownload(event: any){
+	  window.location.href = window.location.origin+"/wheelhouse/batch/download?file=validation_errors";
+  }
+  
   public validateFile(event: any){
 	  
 	  if(this.status == "Validation Completed"){
 	   window.location.href = window.location.origin+"/wheelhouse/batch/search";  
-	  }else{
+	  }else if(this.status != "Validating users..."){
 	  
 	  
 	  

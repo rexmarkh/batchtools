@@ -32,15 +32,15 @@
                     <p class="ng-8-file-input-file-text">File Name: {{file_name}}</p>
                     <p class="text-primary">{{status}}</p>
                 </div>
-                <div>
+               <!-- <div>
                     <alert type="danger">
                         <strong><fa name="exclamation-triangle"></fa></strong> Change a few things up and try submitting again.
                     </alert>
-                </div>
+                </div>-->
                 <div [hidden]="errorVisible">
                     <div class=" align_center">
                         <span>There are minor errors in the following optional fields.</span>
-                        <button type="button" class="btn btn-primary">Download Report</button>
+                        <button type="button" class="btn btn-primary" (click) = "triggerDownload(event);" >Download Report</button>
                     </div>
                     <div class="border-all p-20 align_center">
                         <span class="text-danger">Userid is unrecognized in {{users}} records</span>
