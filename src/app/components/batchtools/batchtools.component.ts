@@ -67,6 +67,7 @@ export class BatchtoolsComponent implements OnInit {
 					 this.isVisible = true;
 					 document.getElementById("upload_title").classList.remove("active");
 					 document.getElementById("validate_title").classList.add("active");
+					 this.validateFile(event);
                          
                 },
                 (error) => { 
@@ -91,7 +92,7 @@ export class BatchtoolsComponent implements OnInit {
 	  this.errorVisible = true;
 	  this.status = "Validation Completed";
 	  this.dynamic = 100;
-	  window.location.href = window.location.origin+"/wheelhouse/batch/search";
+	   document.getElementById("validation_button").classList.add("btn-primary");
   }
   
   public triggerDownload(event: any){
@@ -100,7 +101,9 @@ export class BatchtoolsComponent implements OnInit {
   
   public validateFile(event: any){
 	  
-	  if(this.status == "Read Successfully"){
+	  if(this.status == "Validation Completed"){
+		  window.location.href = window.location.origin+"/wheelhouse/batch/search";
+	  }else if(this.status == "Read Successfully"){
 	  this.dynamic = 47;
 	  this.status = "Validating users...";
 	  document.getElementById("validation_button").classList.remove("btn-primary");
@@ -117,9 +120,11 @@ export class BatchtoolsComponent implements OnInit {
 						 this.errorVisible = false;
 						 this.status = "Validation Pending";
 						 this.users = responsetext["invalidUsers"];
+						
 					 }else{
 						 this.dynamic = 100;
 						 this.status = "Validation Completed";
+						 window.location.href = window.location.origin+"/wheelhouse/batch/search";
 					 }
 					 
                                            
@@ -148,7 +153,6 @@ export class BatchtoolsComponent implements OnInit {
   this.users = 0;
   document.getElementById("upload_title").classList.add("active");
   document.getElementById("validate_title").classList.remove("active");
-  document.getElementById("validation_button").classList.add("btn-primary");
   }
   
   public logCurrentFiles():void{
