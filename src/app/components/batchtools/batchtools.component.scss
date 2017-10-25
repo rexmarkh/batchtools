@@ -34,6 +34,9 @@ h4 {
 
 .border-all {
     border: 1px solid #ccc;
+    .text-primary {
+        font-weight: bold !important;
+    }
     .align_center {
         p:first-child {
             color: #999999;

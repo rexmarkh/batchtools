@@ -32,7 +32,7 @@
                     <p class="ng-8-file-input-file-text">File Name: {{file_name}}</p>
                     <p class="text-primary">{{status}}</p>
                 </div>
-               <!-- <div>
+                <!-- <div>
                     <alert type="danger">
                         <strong><fa name="exclamation-triangle"></fa></strong> Change a few things up and try submitting again.
                     </alert>
@@ -40,17 +40,17 @@
                 <div [hidden]="errorVisible">
                     <div class=" align_center">
                         <span>There are minor errors in the following optional fields.</span>
-                        <button type="button" class="btn btn-primary" (click) = "triggerDownload(event);" >Download Report</button>
+                        <button type="button" class="btn btn-primary" (click)="triggerDownload(event);">Download Report</button>
                     </div>
                     <div class="border-all p-20 align_center">
-                        <span class="text-danger">Userid is unrecognized in {{users}} records</span>
+                        <span class="text-danger">{{users}} users were not found in the selected aggregate.</span>
                         <button type="button" (click)="ignoreErrors(event);" class="btn btn-primary">Ignore</button>
                     </div>
                 </div>
             </div>
         </div>
         <div [hidden]="!isVisible" class="align_left border-all">
-            <button type="button" (click)="validateFile(event);" id = "validation_button" class="btn pull-right">Continue validation</button>
+            <button type="button" (click)="validateFile(event);" [disabled]="isValid" id="validation_button" class="btn btn-primary pull-right">{{continue_btn_name}}</button>
             <button type="button" class="btn btn-default invisible">Cancel</button>
             <button type="button" (click)="cancelProgress(event);" class="btn btn-default pull-right">Cancel</button>
 

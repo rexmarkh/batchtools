@@ -30,8 +30,9 @@ export class BatchtoolsComponent implements OnInit {
   public event;
   public errorVisible = true;
   public users = 0;
+  public isValid;
+  public continue_btn_name:string = "Continue Validation";    
   public appearInput(visible){
-    
   }
   public myEvent() {
     console.log("Clicked");
@@ -91,8 +92,9 @@ export class BatchtoolsComponent implements OnInit {
   public ignoreErrors(event: any){
 	  this.errorVisible = true;
 	  this.status = "Validation Completed";
-	  this.dynamic = 100;
-	   document.getElementById("validation_button").classList.add("btn-primary");
+    this.dynamic = 100;
+    this.isValid = false;
+    this.continue_btn_name = "Continue";
   }
   
   public triggerDownload(event: any){
@@ -106,7 +108,7 @@ export class BatchtoolsComponent implements OnInit {
 	  }else if(this.status == "Read Successfully"){
 	  this.dynamic = 47;
 	  this.status = "Validating users...";
-	  document.getElementById("validation_button").classList.remove("btn-primary");
+    this.isValid = true;
 	  this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .get(URL,{search:{"stage": "validateUsers"}}).subscribe( // Successful responses call the first callback.
