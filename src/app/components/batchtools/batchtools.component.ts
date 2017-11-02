@@ -31,7 +31,8 @@ export class BatchtoolsComponent implements OnInit {
   public errorVisible = true;
   public users = 0;
   public isValid;
-  public continue_btn_name:string = "Continue Validation";    
+  public continue_btn_name:string = "Continue Validation"; 
+  public subscription;  
   public appearInput(visible){
   }
   public myEvent() {
@@ -44,6 +45,7 @@ export class BatchtoolsComponent implements OnInit {
   
   
   constructor(private ng2FileInputService: Ng2FileInputService,private http: Http) {
+
   }
 
   public onAction(event: any){
@@ -56,7 +58,7 @@ export class BatchtoolsComponent implements OnInit {
     
 	formData.append('batch',event.currentFiles[0]);
 	
-	this.http
+	this.subscription = this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .post(URL+"?stage=upload", formData).map((res:Response) => res.json()).subscribe(
                 //map the success function and alert the response
@@ -109,7 +111,7 @@ export class BatchtoolsComponent implements OnInit {
 	  this.dynamic = 47;
 	  this.status = "Validating users...";
     this.isValid = true;
-	  this.http
+	  this.subscription = this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .get(URL,{search:{"stage": "validateUsers"}}).subscribe( // Successful responses call the first callback.
     data => {			 
@@ -155,6 +157,27 @@ export class BatchtoolsComponent implements OnInit {
   this.users = 0;
   document.getElementById("upload_title").classList.add("active");
   document.getElementById("validate_title").classList.remove("active");
+  if(this.subscription)
+  this.subscription.unsubscribe();
+  this.http
+        //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
+                .get(URL,{search:{"stage": "setState"}}).subscribe( // Successful responses call the first callback.
+    data => {			 
+					 ;
+					 
+					 //this.status = "Validation Completed";
+					 let responsetext = data.json();
+					 
+                                           
+			},
+    // Errors will call this callback instead:
+    err => {
+      console.log('Something went wrong!');
+    });
+
+
+
+  
   }
   
   public logCurrentFiles():void{
