@@ -6,9 +6,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ProgressbarModule } from "ngx-bootstrap/progressbar";
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TabsModule  } from 'ngx-bootstrap/tabs';
-
 
 @NgModule({
   imports: [
@@ -17,16 +14,14 @@ import { TabsModule  } from 'ngx-bootstrap/tabs';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    PaginationModule.forRoot()
+    ProgressbarModule.forRoot()
   ],
   exports: [
   	BsDropdownModule,
   	TooltipModule,
   	ModalModule,
     AlertModule,
-    ProgressbarModule,
-    PaginationModule
+    ProgressbarModule
   ]
 })
 export class AppBootstrapModule {}
