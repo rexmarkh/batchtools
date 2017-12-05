@@ -21,7 +21,7 @@
             <fa name="upload" class="upload-icon"></fa>
             <ng2-file-input (click)="appearInput(visible)" extensions="['excel/xlsx']" (onAdded)="onAdded($event)" (onAction)="onAction($event)"></ng2-file-input>
             <!-- <button type="button" class="btn btn-primary"> <fa name="upload"></fa> Upload File</button> -->
-            <button (click)="myEvent()" type="button" class="btn btn-default disabled"><fa name="download"></fa>Download Template</button>
+            <button (click)="myEvent()" type="button" class="btn btn-default"><fa name="download"></fa>Download Template</button>
         </div>
 
         <div class="border-all" [hidden]="!isVisible">

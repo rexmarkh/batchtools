@@ -34,10 +34,11 @@ export class BatchtoolsComponent implements OnInit {
   public continue_btn_name:string = "Continue Validation";    
   public appearInput(visible){
   }
-  public myEvent() {
-    console.log("Clicked");
-  }
   
+  public myEvent() {
+    window.location.href = window.location.origin+"/files/batchfiles/AddOrDeactivateUsersTemplate.xlsx";
+  }
+ 
   ngOnInit() {
 	  
   }
