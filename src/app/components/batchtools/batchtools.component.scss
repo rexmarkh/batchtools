@@ -51,13 +51,19 @@ h4 {
 
 .upload_excel {
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     & span,
     button {
         margin: 0 8px;
     }
+}
+
+.upload_excel>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .align_center {
@@ -82,4 +88,11 @@ h4 {
 
 .p-20 {
     padding: 20px;
+}
+
+.errorMsg {
+    padding-top: 10px;
+    p {
+        margin-bottom: 0;
+    }
 }

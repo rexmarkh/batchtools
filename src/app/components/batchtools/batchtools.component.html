@@ -17,11 +17,16 @@
 <div class="row">
     <div class="col-md-12">
         <div class="upload_excel border-all" *ngIf="uploadElementvisible">
-            <span>Upload Subscribers List:</span>
-            <fa name="upload" class="upload-icon"></fa>
-            <ng2-file-input (click)="appearInput(visible)" (onAdded)="onAdded($event)" (onAction)="onAction($event)"></ng2-file-input>
-            <!-- <button type="button" class="btn btn-primary"> <fa name="upload"></fa> Upload File</button> -->
-            <button (click)="downloadTemplate()" type="button" id="download_button" class="btn btn-default"><fa name="download"></fa>Download Template</button>
+            <div>
+                <span>Upload Subscribers List:</span>
+                <fa name="upload" class="upload-icon"></fa>
+                <ng2-file-input (click)="appearInput(visible)" (onAdded)="onAdded($event)" (onAction)="onAction($event)"></ng2-file-input>
+                <!-- <button type="button" class="btn btn-primary"> <fa name="upload"></fa> Upload File</button> -->
+                <button (click)="downloadTemplate()" type="button" id="download_button" class="btn btn-default"><fa name="download"></fa>Download Template</button>
+            </div>
+            <div class="errorMsg" *ngIf="errorMessage">
+                <p class="text-danger">dkjsfhdksjfhksdjhfksjhk</p>
+            </div>
         </div>
 
         <div class="border-all" [hidden]="!isVisible">
