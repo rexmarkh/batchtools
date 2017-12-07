@@ -1,14 +1,11 @@
-/**
- * File move script
- */
 import os
 import re
 import shutil
 
 
-flag = 0;
-css_folder = "D:/xampp/htdocs/onedashboard/trunk/css/angular/";
-js_folder = "D:/xampp/htdocs/onedashboard/trunk/js/angularjs/";
+flag = 0
+css_folder = "D:/xampp/htdocs/onedashboard/trunk/css/angular/"
+js_folder = "D:/xampp/htdocs/onedashboard/trunk/js/angularjs/"
 if(os.path.isdir(css_folder)==False):
  raise Exception('"'+css_folder+'" does not exits')
 if(os.path.isdir(js_folder)==False):

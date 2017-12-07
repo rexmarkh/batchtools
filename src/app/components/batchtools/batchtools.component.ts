@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ElementRef, Inject, OnInit } from '@angular/core';
 import { Ng2FileInputService, Ng2FileInputAction } from 'ng2-file-input';
 import { Http, Response } from '@angular/http';
 //import the do function to be used with the http library.
@@ -16,7 +16,7 @@ const URL = window.location.origin+'/wheelhouse/batch/manageusergroups';
 })
 
 export class BatchtoolsComponent implements OnInit {
-  
+  public elementRef: ElementRef;
   public max: number = 100;
   public dynamic: number = 0;
   private myFileInputIdentifier:string = "tHiS_Id_IS_sPeeCiAL";
@@ -30,34 +30,55 @@ export class BatchtoolsComponent implements OnInit {
   public event;
   public errorVisible = true;
   public users = 0;
+  public errorMessage = "";
   public isValid;
   public continue_btn_name:string = "Continue Validation";    
+  public http_request;
   public appearInput(visible){
   }
   
-  public myEvent() {
-    window.location.href = window.location.origin+"/files/batchfiles/AddOrDeactivateUsersTemplate.xlsx";
+  public downloadTemplate() {
+
+    let db_classList = this.elementRef.nativeElement.querySelector('.upload_excel #download_button').classList;
+    
+    let download_template = true;
+
+    for (let class_name of db_classList) {
+      if(class_name == "disable")
+      download_template = false;
+    }
+    if(download_template) {
+        window.location.href = window.location.origin+"/files/batchfiles/AddOrDeactivateUsersTemplate.xlsx";
+    }
   }
  
   ngOnInit() {
-	  
+	   
   }
-  
-  
-  constructor(private ng2FileInputService: Ng2FileInputService,private http: Http) {
+   
+  constructor(private ng2FileInputService: Ng2FileInputService,private http: Http,@Inject(ElementRef) elementRef: ElementRef) {
+	  this.elementRef = elementRef;
   }
 
   public onAction(event: any){
-    console.log(event);
-    this.actionLog += "\n currentFiles: " + this.getFileNames(event.currentFiles);
-	
-    this.status = "Uploading file";
+  
+  var patt= new RegExp('^([A-Za-z0-9._]*)\.(xlsx|csv|xls)$');
+  if(!patt.test(this.getFileNames(event.currentFiles))){
+    console.log("asdasd");
+    this.errorVisible = true;
+    this.errorMessage = "The file type is not recognized. Please upload a supported file type (XLS, XLSX, CSV)";
+    return false;
+  }
+  
+  this.actionLog += "\n currentFiles: " + this.getFileNames(event.currentFiles);
+	this.elementRef.nativeElement.querySelector('.upload_excel #download_button').classList.add("disable");
+  this.status = "Uploading file";
 	this.isVisible = true;
 	let formData = new FormData();
     
 	formData.append('batch',event.currentFiles[0]);
 	
-	this.http
+	this.http_request = this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .post(URL+"?stage=upload", formData).map((res:Response) => res.json()).subscribe(
                 //map the success function and alert the response
@@ -110,7 +131,7 @@ export class BatchtoolsComponent implements OnInit {
 	  this.dynamic = 47;
 	  this.status = "Validating users...";
     this.isValid = true;
-	  this.http
+	  this.http_request = this.http
         //post the form data to the url defined above and map the response. Then subscribe //to initiate the post. if you don't subscribe, angular wont post.
                 .get(URL,{search:{"stage": "validateUsers"}}).subscribe( // Successful responses call the first callback.
     data => {			 
@@ -122,8 +143,8 @@ export class BatchtoolsComponent implements OnInit {
 					 if(responsetext["invalidUsers"] > 0){
 						 this.errorVisible = false;
 						 this.status = "Validation Pending";
-						 this.users = responsetext["invalidUsers"];
-						
+             this.users = responsetext["invalidUsers"];
+             this.errorMessage = this.users+" "+"users are not within your management privileges.";
 					 }else{
 						 this.dynamic = 100;
 						 this.status = "Validation Completed";
@@ -154,6 +175,7 @@ export class BatchtoolsComponent implements OnInit {
   this.uploadElementvisible = true;
   this.errorVisible = true;
   this.users = 0;
+  this.http_request.unsubscribe();
   document.getElementById("upload_title").classList.add("active");
   document.getElementById("validate_title").classList.remove("active");
   }
