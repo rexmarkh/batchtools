@@ -62,14 +62,12 @@ export class BatchtoolsComponent implements OnInit {
 
   public onAction(event: any){
   
-  var patt= new RegExp('^([A-Za-z0-9._]*)\.(xlsx|csv|xls)$');
+  var patt= new RegExp('^([^\\\/:\*\?""\'<>|])*\.(xlsx|csv|xls)$');
   if(!patt.test(this.getFileNames(event.currentFiles))){
-    console.log("asdasd");
-    this.errorVisible = true;
     this.errorMessage = "The file type is not recognized. Please upload a supported file type (XLS, XLSX, CSV)";
     return false;
   }
-  
+  this.errorMessage = "";
   this.actionLog += "\n currentFiles: " + this.getFileNames(event.currentFiles);
 	this.elementRef.nativeElement.querySelector('.upload_excel #download_button').classList.add("disable");
   this.status = "Uploading file";
@@ -144,7 +142,6 @@ export class BatchtoolsComponent implements OnInit {
 						 this.errorVisible = false;
 						 this.status = "Validation Pending";
              this.users = responsetext["invalidUsers"];
-             this.errorMessage = this.users+" "+"users are not within your management privileges.";
 					 }else{
 						 this.dynamic = 100;
 						 this.status = "Validation Completed";
@@ -163,7 +160,8 @@ export class BatchtoolsComponent implements OnInit {
   }
   
   public cancelProgress(event: any){
-	  
+  if(this.elementRef.nativeElement.querySelector('.upload_excel #download_button') !=null)
+  this.elementRef.nativeElement.querySelector('.upload_excel #download_button').classList.remove("disable");
   this.dynamic = 0;
   this.myFileInputIdentifier = "tHiS_Id_IS_sPeeCiAL";
   this.steps = "Step 1 : Upload File";  
@@ -175,6 +173,7 @@ export class BatchtoolsComponent implements OnInit {
   this.uploadElementvisible = true;
   this.errorVisible = true;
   this.users = 0;
+  this.errorMessage = "";
   this.http_request.unsubscribe();
   document.getElementById("upload_title").classList.add("active");
   document.getElementById("validate_title").classList.remove("active");

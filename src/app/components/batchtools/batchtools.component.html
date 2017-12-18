@@ -25,7 +25,7 @@
                 <button (click)="downloadTemplate()" type="button" id="download_button" class="btn btn-default"><fa name="download"></fa>Download Template</button>
             </div>
             <div class="errorMsg" *ngIf="errorMessage">
-                <p class="text-danger">dkjsfhdksjfhksdjhfksjhk</p>
+                <p class="text-danger">{{errorMessage}}</p>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
                         <button type="button" class="btn btn-primary" (click)="triggerDownload(event);">Download Report</button>
                     </div>
                     <div class="border-all p-20 align_center">
-                        <span class="text-danger">{{errorMessage}}</span>
+                        <span class="text-danger">{{users}} users are not within your management privileges.</span>
                         <button type="button" (click)="ignoreErrors(event);" class="btn btn-primary">Ignore</button>
                     </div>
                 </div>
